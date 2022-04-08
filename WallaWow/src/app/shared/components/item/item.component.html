@@ -1,0 +1,17 @@
+<div class="item-card p-3 h-100">
+  <div class="position-relative img-container">
+    <div class="img-card position-absolute"
+         [style.background-image]="'url(' + item?.image + ')'"></div>
+    <div class="icon-container">
+      <!--TODO: add icon lottie-->
+      <!--<ng-lottie [options]="lottieOpts"></ng-lottie>-->
+    </div>
+  </div>
+  <div class="header d-flex justify-content-between align-items-center mt-4 mt-lg-5 mb-1 mb-lg-2">
+    <h4 class="title">{{item?.title}}</h4>
+    <h2 class="price">{{item?.price | currency: 'EUR' }}</h2>
+  </div>
+  <h6 class="description mt-2 mt-lg-5 mb-1 mb-lg-2">{{item?.description}}</h6>
+  <h6 class="email mt-4 mt-lg-5 mb-1 mb-lg-2">{{item?.email}}</h6>
+</div>
+
