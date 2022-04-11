@@ -10,7 +10,7 @@ import {AnimationItem, AnimationOptions} from "ngx-lottie/lib/symbols";
 export class ItemComponent implements OnInit {
   @Input() item?: Item;
   lottieOpts: AnimationOptions = {
-    path: '/assets/animated/favorite-2.json',
+    path: '/assets/animated/favorite.json',
     loop: false,
     autoplay: false
   };
