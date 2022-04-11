@@ -1,4 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
+@import "./styles/variables";
+@import "./styles/colors";
+
 html,
 body {
   height: 100%;
@@ -7,3 +13,25 @@ body {
 h1, h2, h3, h4, h5, h6, span {
   font-family: 'Quicksand', sans-serif;
 }
+
+.modal-content {
+  border-radius: $global-border-radius;
+
+  .modal-header,
+  .modal-footer {
+    border: 0;
+  }
+
+  .modal-header {
+    .modal-title {
+      color: $colors-primary;
+    }
+
+    .btn-close-svg {
+      &:hover {
+        fill: $colors-primary;
+      }
+    }
+  }
+}
+

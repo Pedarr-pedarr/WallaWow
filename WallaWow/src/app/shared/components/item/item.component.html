@@ -1,7 +1,8 @@
-<div class="item-card p-3 h-100">
+<div *ngIf="mode === 'grid'"
+     class="item-card p-3 h-100">
   <div class="position-relative img-container">
     <div class="img-card position-absolute"
-         [style.background-image]="'url(' + item?.image + ')'"></div>
+         [style.background-image]="'url(' + bindItem?.image + ')'"></div>
     <div class="icon-container">
       <ng-lottie [options]="lottieOpts"
                  (click)="play()"
@@ -10,12 +11,27 @@
     </div>
   </div>
   <div class="d-flex justify-content-end mt-2 mb-1 mb-lg-2">
-    <h6 class="email">{{item?.email}}</h6>
+    <h6 class="email">{{bindItem?.email}}</h6>
   </div>
   <div class="header d-flex justify-content-between align-items-center mt-3 mt-lg-4 mb-1 mb-lg-2">
-    <h4 class="title">{{item?.title}}</h4>
-    <h2 class="price">{{item?.price | currency: 'EUR' }}</h2>
+    <h4 class="title">{{bindItem?.title}}</h4>
+    <h2 class="price">{{bindItem?.price | currency: 'EUR' }}</h2>
   </div>
-  <h6 class="description mt-2 mt-lg-5 mb-1 mb-lg-2">{{item?.description}}</h6>
+  <h6 class="description mt-2 mt-lg-5 mb-1 mb-lg-2">{{bindItem?.description}}</h6>
 </div>
+
+<div *ngIf="mode === 'list'"
+     class="item-card d-flex p-3">
+  <div class="col-lg-4 item-img-list"
+       [style.background-image]="'url(' + bindItem?.image + ')'"></div>
+  <div class="col-lg-8 header d-flex justify-content-between align-items-center mx-3">
+    <h5 class="title">{{bindItem?.title}}</h5>
+    <ng-lottie class="col-lg-3 lottie-list"
+               [options]="lottieOpts"
+               (click)="play()"
+               (complete)="stop()"
+               (animationCreated)="animationCreated($event)"></ng-lottie>
+  </div>
+</div>
+
 

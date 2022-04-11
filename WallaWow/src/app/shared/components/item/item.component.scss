@@ -1,4 +1,5 @@
 @import '../../../../styles/colors';
+@import '../../../../styles/variables';
 
 @import "~bootstrap/scss/functions";
 @import "~bootstrap/scss/variables";
@@ -7,7 +8,7 @@
 $favorite-icon-height: 70px;
 
 .item-card {
-  border-radius: 20px;
+  border-radius: $global-border-radius;
   transition: .4s;
 
   &:hover {
@@ -15,12 +16,19 @@ $favorite-icon-height: 70px;
     box-shadow: 0 0 12px -2px rgba($colors-primary-rgb,0.39);
   }
 
+  .item-img-list {
+    border-radius: $global-border-radius;
+    background-size: cover;
+    height: 150px;
+  }
+
+  .lottie-list {
+    width: 60px;
+    height: 60px;
+  }
+
   .img-container {
     height: 400px;
-
-    @include media-breakpoint-down(lg) {
-      height: 280px;
-    }
 
     &:after {
       margin-top: $favorite-icon-height;
@@ -31,14 +39,14 @@ $favorite-icon-height: 70px;
       top: 0;
       left: 0;
       background-image: linear-gradient(to bottom, transparent, rgba(0,0,0,0.3));
-      border-radius: 20px;
+      border-radius: $global-border-radius;
     }
 
     .img-card {
       height: 400px;
       width: 100%;
       background-size: cover;
-      border-radius: 20px;
+      border-radius: $global-border-radius;
 
       @include media-breakpoint-down(lg) {
         height: 280px;

@@ -3,6 +3,8 @@ import {Item} from "../../../models/item";
 import {AnimationItem, AnimationOptions} from "ngx-lottie/lib/symbols";
 import {FavoritesService} from "../../services/favorites.service";
 
+export type Mode = 'grid' | 'list';
+
 @Component({
   selector: 'app-item',
   templateUrl: './item.component.html',
@@ -12,8 +14,14 @@ export class ItemComponent implements OnInit {
   // last frame is an empty heart, use -1 to take last frame with filled heart.
   // number take it from https://lottiefiles.com/16557-heart-pop
   private readonly lastFrame = 59;
+  bindItem?: Item;
 
-  @Input() item?: Item;
+  @Input()
+  set item(value: Item) {
+    this.bindItem = value;
+    console.log(value);
+  };
+  @Input() mode: Mode = 'grid';
   lottieOpts: AnimationOptions = {
     path: '/assets/animated/favorite.json',
     loop: false,
@@ -26,20 +34,18 @@ export class ItemComponent implements OnInit {
               private favorites: FavoritesService) { }
 
   ngOnInit(): void {
-    console.log('init');
   }
 
   animationCreated(animationItem: AnimationItem): void {
     this.animationItem = animationItem;
-    console.log('animationCreated and item is', this.item);
-    this.animationItem?.setDirection((!!this.item?.favorite) ? -1 : 1);
-    this.animationItem.setSegment((!!this.item?.favorite) ? this.lastFrame : 0, (!!this.item?.favorite) ? this.lastFrame : 0);
+    this.animationItem?.setDirection((!!this.bindItem?.favorite) ? -1 : 1);
+    this.animationItem.setSegment((!!this.bindItem?.favorite) ? this.lastFrame : 0, (!!this.bindItem?.favorite) ? this.lastFrame : 0);
   }
 
   stop(): void {
     this.ng.runOutsideAngular(() => {
-      if (!!this.item) {
-        this.favorites.updateFavorite(this.item).subscribe((updated: Item) => {
+      if (!!this.bindItem) {
+        this.favorites.updateFavorite(this.bindItem).subscribe((updated: Item) => {
           if (this.animationItem?.playDirection === -1) {
             this.animationItem?.goToAndStop(0, true);
           } else {

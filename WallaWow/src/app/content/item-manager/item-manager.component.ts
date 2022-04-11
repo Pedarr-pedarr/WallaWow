@@ -14,10 +14,9 @@ export class ItemManagerComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private favorites: FavoritesService) {
     this.items = route.snapshot.data.items;
-    console.log('this.items', this.items);
     this.favorites.favorites$.subscribe((items: Item[]) => {
       //console.log(items);
-      //this.items = items;
+      this.items = items;
     });
   }
 

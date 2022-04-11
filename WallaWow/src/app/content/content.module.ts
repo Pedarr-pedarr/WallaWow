@@ -6,6 +6,7 @@ import {ItemManagerComponent} from "./item-manager/item-manager.component";
 import {CommonModule} from "@angular/common";
 import { MenuComponent } from './menu/menu.component';
 import {AngularSvgIconModule} from "angular-svg-icon";
+import {NgbModalModule, NgbModule} from "@ng-bootstrap/ng-bootstrap";
 
 @NgModule({
   declarations: [
@@ -17,6 +18,8 @@ import {AngularSvgIconModule} from "angular-svg-icon";
     CommonModule,
     ContentRoutingModule,
     SharedModule,
+    NgbModule,
+    NgbModalModule,
     AngularSvgIconModule.forRoot()
   ],
   providers: []

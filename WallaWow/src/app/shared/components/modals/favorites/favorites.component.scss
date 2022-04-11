@@ -1,0 +1,10 @@
+@import '../../../../../styles/colors';
+@import '../../../../../styles/variables';
+
+.modal-header {
+  .btn-close-svg {
+    &:hover {
+      fill: $colors-primary;
+    }
+  }
+}

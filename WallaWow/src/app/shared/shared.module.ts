@@ -6,6 +6,9 @@ import {LottieModule} from "ngx-lottie";
 import {StorageService} from "./services/storage.service";
 import {FavoritesService} from "./services/favorites.service";
 import {CommonModule} from "@angular/common";
+import {FavoritesComponent} from './components/modals/favorites/favorites.component';
+import {NgbModalModule, NgbModule} from "@ng-bootstrap/ng-bootstrap";
+import {AngularSvgIconModule} from "angular-svg-icon";
 
 export function playerFactory() {
   return import(/* webpackChunkName: 'lottie-web' */ 'lottie-web');
@@ -13,12 +16,16 @@ export function playerFactory() {
 
 @NgModule({
   declarations: [
-    ItemComponent
+    ItemComponent,
+    FavoritesComponent
   ],
   imports: [
     CommonModule,
     HttpClientModule,
-    LottieModule.forRoot({player: playerFactory})
+    NgbModule,
+    NgbModalModule,
+    LottieModule.forRoot({player: playerFactory}),
+    AngularSvgIconModule
   ],
   providers: [
     StorageService,
