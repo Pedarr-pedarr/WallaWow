@@ -1,11 +1,11 @@
 import {NgModule} from '@angular/core';
-import {BrowserModule} from '@angular/platform-browser';
 import {HttpClientModule} from "@angular/common/http";
 import {ClientService} from "./services/client.service";
 import {ItemComponent} from './components/item/item.component';
 import {LottieModule} from "ngx-lottie";
 import {StorageService} from "./services/storage.service";
 import {FavoritesService} from "./services/favorites.service";
+import {CommonModule} from "@angular/common";
 
 export function playerFactory() {
   return import(/* webpackChunkName: 'lottie-web' */ 'lottie-web');
@@ -16,9 +16,8 @@ export function playerFactory() {
     ItemComponent
   ],
   imports: [
-    BrowserModule,
+    CommonModule,
     HttpClientModule,
-    LottieModule,
     LottieModule.forRoot({player: playerFactory})
   ],
   providers: [
@@ -28,8 +27,7 @@ export function playerFactory() {
   ],
   exports: [
     ItemComponent
-  ],
-  bootstrap: []
+  ]
 })
 
 export class SharedModule {

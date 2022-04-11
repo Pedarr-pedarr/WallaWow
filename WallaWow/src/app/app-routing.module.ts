@@ -1,20 +1,15 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {ItemManagerComponent} from "./item-manager/item-manager.component";
-import {ItemsResolver} from "./shared/resolvers/items.resolver";
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'itemManager',
+    redirectTo: 'content/itemManager',
     pathMatch: 'full',
   },
   {
-    path: 'itemManager',
-    component: ItemManagerComponent,
-    resolve: {
-      items: ItemsResolver
-    }
+    path: 'content',
+    loadChildren: () => import('./content/content.module').then( m => m.ContentModule)
   }
 ];
 

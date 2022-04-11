@@ -26,6 +26,7 @@ export class ItemComponent implements OnInit {
               private favorites: FavoritesService) { }
 
   ngOnInit(): void {
+    console.log('init');
   }
 
   animationCreated(animationItem: AnimationItem): void {
