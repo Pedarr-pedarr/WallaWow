@@ -1,0 +1,13 @@
+<div class="menu h-100">
+  <div *ngFor="let item of items"
+       class="position-absolute bottom-0 d-flex align-items-center menu-item p-3 px-4"
+       (click)="openFavorites()">
+    <svg-icon class="me-3"
+              [src]="item.icon"
+              [svgStyle]="{
+                        'width.px': 30,
+                        'height.px': 30,
+                        'fill':'rgb(255,255,255)'}"></svg-icon>
+    <span class="my-0">{{item.title}}</span>
+  </div>
+</div>

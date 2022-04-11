@@ -1,0 +1,35 @@
+@import '../../../styles/colors';
+
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+
+.menu {
+  position: fixed;
+  width: 25%;
+  background-color: $colors-primary-rgb;
+
+  .menu-item {
+    transition: .4s;
+    cursor: pointer;
+    color: $colors-white;
+    width: 100%;
+    border-top: 1px solid rgba($colors-white-rgb, .2);
+
+    &:hover {
+      background-color: rgba($colors-gray, .2);
+    }
+  }
+
+  @include media-breakpoint-down(lg) {
+    width: 40%;
+  }
+
+  @include media-breakpoint-down(md) {
+    bottom: 0;
+    height: 60px !important;
+    width: 100%;
+    left: 0;
+    z-index: 4;
+  }
+}
