@@ -1,6 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, NgZone, OnInit} from '@angular/core';
 import {Item} from "../../../models/item";
-import {AnimationOptions} from "ngx-lottie/lib/symbols";
+import {AnimationItem, AnimationOptions} from "ngx-lottie/lib/symbols";
 
 @Component({
   selector: 'app-item',
@@ -8,15 +8,33 @@ import {AnimationOptions} from "ngx-lottie/lib/symbols";
   styleUrls: ['./item.component.scss']
 })
 export class ItemComponent implements OnInit {
-  @Input() item: Item | undefined;
+  @Input() item?: Item;
   lottieOpts: AnimationOptions = {
-    path: '/assets/animated/favorite.json'
+    path: '/assets/animated/favorite-2.json',
+    loop: false,
+    autoplay: false
   };
 
+  private animationItem?: AnimationItem;
 
-  constructor() { }
+  constructor(private ng: NgZone) { }
 
   ngOnInit(): void {
   }
 
+  animationCreated(animationItem: AnimationItem): void {
+    this.animationItem = animationItem;
+  }
+
+  stop(): void {
+    this.ng.runOutsideAngular(() => {
+      this.animationItem?.stop();
+    });
+  }
+
+  play(): void {
+    this.ng.runOutsideAngular(() => {
+      this.animationItem?.play();
+    });
+  }
 }

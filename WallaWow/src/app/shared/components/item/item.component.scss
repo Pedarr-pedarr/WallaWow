@@ -4,6 +4,8 @@
 @import "~bootstrap/scss/variables";
 @import "~bootstrap/scss/mixins";
 
+$favorite-icon-height: 70px;
+
 .item-card {
   border-radius: 20px;
   transition: .4s;
@@ -22,10 +24,11 @@
     }
 
     &:after {
+      margin-top: $favorite-icon-height;
       position: absolute;
       content: ' ';
       width: 100%;
-      height: 100%;
+      height: calc(100% - #{$favorite-icon-height});
       top: 0;
       left: 0;
       background-image: linear-gradient(to bottom, transparent, rgba(0,0,0,0.3));
@@ -41,6 +44,16 @@
       @include media-breakpoint-down(lg) {
         height: 280px;
       }
+    }
+
+    .icon-container {
+      width: 60px;
+      height: 60px;
+      right: 0;
+      margin: 10px;
+      position: absolute;
+      border-radius: 50%;
+      background-color: rgba($colors-primary-rgb, .2);
     }
   }
 

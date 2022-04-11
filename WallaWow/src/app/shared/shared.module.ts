@@ -5,6 +5,10 @@ import {ClientService} from "./services/client.service";
 import {ItemComponent} from './components/item/item.component';
 import {LottieModule} from "ngx-lottie";
 
+export function playerFactory() {
+  return import(/* webpackChunkName: 'lottie-web' */ 'lottie-web');
+}
+
 @NgModule({
   declarations: [
     ItemComponent
@@ -12,7 +16,8 @@ import {LottieModule} from "ngx-lottie";
   imports: [
     BrowserModule,
     HttpClientModule,
-    // LottieModule.forRoot({ player: playerFactory })
+    LottieModule,
+    LottieModule.forRoot({ player: playerFactory })
   ],
   providers: [ClientService],
   exports: [
