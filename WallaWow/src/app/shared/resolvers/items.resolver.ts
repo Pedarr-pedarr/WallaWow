@@ -1,20 +1,25 @@
-import { Injectable } from '@angular/core';
-import {Resolve,
+import {Injectable} from '@angular/core';
+import {
+  Resolve,
   RouterStateSnapshot,
   ActivatedRouteSnapshot
 } from '@angular/router';
-import { Observable, } from 'rxjs';
-import {ClientService} from "../services/client.service";
+import {Observable} from 'rxjs';
 import {Item} from "../../models/item";
+import {FavoritesService} from "../services/favorites.service";
+import {first} from "rxjs/operators";
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class ItemsResolver implements Resolve<Item[]> {
-  constructor(private client: ClientService) {
+  constructor(private favorites: FavoritesService) {
   }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Item[]> {
-    return this.client.get();
+    return this.favorites.getFavorite().pipe(
+      first()
+    );
   }
 }

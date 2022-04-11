@@ -4,6 +4,8 @@ import {HttpClientModule} from "@angular/common/http";
 import {ClientService} from "./services/client.service";
 import {ItemComponent} from './components/item/item.component';
 import {LottieModule} from "ngx-lottie";
+import {StorageService} from "./services/storage.service";
+import {FavoritesService} from "./services/favorites.service";
 
 export function playerFactory() {
   return import(/* webpackChunkName: 'lottie-web' */ 'lottie-web');
@@ -17,9 +19,13 @@ export function playerFactory() {
     BrowserModule,
     HttpClientModule,
     LottieModule,
-    LottieModule.forRoot({ player: playerFactory })
+    LottieModule.forRoot({player: playerFactory})
   ],
-  providers: [ClientService],
+  providers: [
+    StorageService,
+    ClientService,
+    FavoritesService
+  ],
   exports: [
     ItemComponent
   ],

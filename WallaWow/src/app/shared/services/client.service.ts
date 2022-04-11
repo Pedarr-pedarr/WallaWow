@@ -14,7 +14,12 @@ export class ClientService {
 
   get(): Observable<Item[]> {
     return this.http.get<{ items: Item[] }>(baseUrl).pipe(
-      map((res: { items: Item[] }) => res.items)
-    )
-  }
+      map((res: { items: Item[] }) => res.items
+        .map((value: Item, index: number) => {
+          return {
+            // @ts-ignore
+            id: index,
+            ...value}
+        }))
+    )}
 }

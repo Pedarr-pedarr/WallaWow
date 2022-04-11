@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {Item} from "../models/item";
+import {FavoritesService} from "../shared/services/favorites.service";
 
 @Component({
   selector: 'app-item-manager',
@@ -10,8 +11,10 @@ import {Item} from "../models/item";
 export class ItemManagerComponent implements OnInit {
   items: Item[] = [];
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute,
+              private favorites: FavoritesService) {
     this.items = route.snapshot.data.items;
+    this.favorites.favorites$.subscribe((items: Item[]) => this.items = items);
   }
 
   ngOnInit(): void {
