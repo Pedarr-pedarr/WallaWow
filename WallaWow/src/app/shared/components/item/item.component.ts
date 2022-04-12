@@ -14,13 +14,9 @@ export class ItemComponent implements OnInit {
   // last frame is an empty heart, use -1 to take last frame with filled heart.
   // number take it from https://lottiefiles.com/16557-heart-pop
   private readonly lastFrame = 59;
-  bindItem?: Item;
+  private isEnabled: boolean = true;
 
-  @Input()
-  set item(value: Item) {
-    this.bindItem = value;
-    console.log(value);
-  };
+  @Input() item?: Item;
   @Input() mode: Mode = 'grid';
   lottieOpts: AnimationOptions = {
     path: '/assets/animated/favorite.json',
@@ -31,33 +27,39 @@ export class ItemComponent implements OnInit {
   private animationItem?: AnimationItem;
 
   constructor(private ng: NgZone,
-              private favorites: FavoritesService) { }
+              private favorites: FavoritesService) {
+  }
 
   ngOnInit(): void {
   }
 
   animationCreated(animationItem: AnimationItem): void {
     this.animationItem = animationItem;
-    this.animationItem?.setDirection((!!this.bindItem?.favorite) ? -1 : 1);
-    this.animationItem.setSegment((!!this.bindItem?.favorite) ? this.lastFrame : 0, (!!this.bindItem?.favorite) ? this.lastFrame : 0);
+    this.animationItem?.setDirection((!!this.item?.favorite) ? -1 : 1);
+    this.animationItem.setSegment((!!this.item?.favorite) ? this.lastFrame : 0, (!!this.item?.favorite) ? this.lastFrame : 0);
   }
 
-  stop(): void {
-    this.ng.runOutsideAngular(() => {
-      if (!!this.bindItem) {
-        this.favorites.updateFavorite(this.bindItem).subscribe((updated: Item) => {
-          if (this.animationItem?.playDirection === -1) {
-            this.animationItem?.goToAndStop(0, true);
-          } else {
-            this.animationItem?.goToAndStop(this.lastFrame, true);
-          }
-          this.animationItem?.setDirection((updated.favorite) ? -1 : 1)
-        });
-      }
-    });
+  updateItem() {
+    if (!!this.item) {
+      this.favorites.updateFavorite(this.item).subscribe((updated: Item) => {
+        this.ng.runOutsideAngular(() => this.animationItem?.goToAndStop((this.animationItem?.playDirection === -1)
+          ? 0
+          : this.lastFrame, true));
+
+        this.animationItem?.setDirection((updated.favorite) ? -1 : 1);
+      });
+    }
   }
 
-  play(): void {
-    this.ng.runOutsideAngular(() => this.animationItem?.play());
+  stop() {
+    this.updateItem();
+    this.isEnabled = true;
+  }
+
+  play() {
+    if (this.isEnabled) {
+      this.isEnabled = false;
+      this.ng.runOutsideAngular(() => this.animationItem?.play());
+    }
   }
 }

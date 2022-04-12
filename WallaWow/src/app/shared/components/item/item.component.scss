@@ -30,6 +30,10 @@ $favorite-icon-height: 70px;
   .img-container {
     height: 400px;
 
+    @include media-breakpoint-down(lg) {
+      height: 280px;
+    }
+
     &:after {
       margin-top: $favorite-icon-height;
       position: absolute;

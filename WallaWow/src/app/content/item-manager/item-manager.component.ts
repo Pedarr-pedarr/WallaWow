@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
-import {Item} from "../../models/item";
+import {Component, NgZone, OnInit} from '@angular/core';
 import {FavoritesService} from "../../shared/services/favorites.service";
+import {Item} from "../../models/item";
 
 @Component({
   selector: 'app-item-manager',
@@ -11,16 +10,21 @@ import {FavoritesService} from "../../shared/services/favorites.service";
 export class ItemManagerComponent implements OnInit {
   items: Item[] = [];
 
-  constructor(private route: ActivatedRoute,
-              private favorites: FavoritesService) {
-    this.items = route.snapshot.data.items;
-    this.favorites.favorites$.subscribe((items: Item[]) => {
-      //console.log(items);
-      this.items = items;
-    });
+  public trackItem (index: number, item: Item) {
+    return this.items?.find((element: Item) => element.id === item.id);
+  }
+
+  constructor(public favorites: FavoritesService,
+              private ng: NgZone) {
+    this.favorites.favorites$.subscribe((items: Item[]) =>
+      this.ng.run(() => this.items = items)
+    );
   }
 
   ngOnInit(): void {
   }
 
+  tracking(index: number, item: Item) {
+    return `${index}-${item.id}- ${item.favorite}`;
+  }
 }

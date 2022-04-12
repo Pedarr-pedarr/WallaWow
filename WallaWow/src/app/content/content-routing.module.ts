@@ -1,7 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {ItemManagerComponent} from "./item-manager/item-manager.component";
-import {ItemsResolver} from "../shared/resolvers/items.resolver";
 import {ContentComponent} from "./content.component";
 
 const routes: Routes = [
@@ -11,10 +10,7 @@ const routes: Routes = [
     children: [
       {
         path: 'itemManager',
-        component: ItemManagerComponent,
-        resolve: {
-          items: ItemsResolver
-        }
+        component: ItemManagerComponent
       }
     ]
   }

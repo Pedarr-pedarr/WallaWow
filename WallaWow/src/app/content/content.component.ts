@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FavoritesService} from "../shared/services/favorites.service";
-import {Item} from "../models/item";
+
 
 @Component({
   selector: 'app-content',
@@ -8,10 +8,8 @@ import {Item} from "../models/item";
   styleUrls: ['./content.component.scss']
 })
 export class ContentComponent implements OnInit {
-  items: Item[] = [];
-
   constructor(private favorites: FavoritesService) {
-    favorites.getFavorite().subscribe((items: Item[]) => this.items = items);
+    favorites.getFavorite().subscribe();
   }
 
   ngOnInit(): void {

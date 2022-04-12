@@ -6,6 +6,7 @@ import {ContentModule} from "./content/content.module";
 import {BrowserModule} from "@angular/platform-browser";
 import {SharedModule} from "./shared/shared.module";
 
+
 @NgModule({
   declarations: [
     AppComponent
