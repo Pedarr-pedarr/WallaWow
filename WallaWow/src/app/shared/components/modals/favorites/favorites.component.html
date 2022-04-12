@@ -1,14 +1,55 @@
-<div class="modal-header">
-  <h4 class="modal-title">My favourites</h4>
-  <svg-icon src="assets/icons/close.svg"
-            [svgStyle]="{'width.px': 25,
+<div *ngIf="mode === 'default'"
+     class="container-fluid">
+  <div class="container">
+    <ng-container *ngTemplateOutlet="content"></ng-container>
+  </div>
+</div>
+
+<ng-container *ngIf="mode === 'modal'">
+  <ng-container *ngTemplateOutlet="content"></ng-container>
+</ng-container>
+
+<ng-template #content>
+  <div class="modal-header">
+    <h4 class="modal-title">My favourites</h4>
+    <svg-icon src="assets/icons/close.svg"
+              [svgStyle]="{'width.px': 25,
                          'height.px': 25,
-                         'fill':'rgba(18, 193, 171, .4)'}"
-            class="btn-close-svg me-2"
-            (click)="activeModal.dismiss('Cross click')"></svg-icon>
-</div>
-<div class="modal-body">
-  <app-item *ngFor="let product of products"
-            [mode]="'list'"
-            [item]="product"></app-item>
-</div>
+                         'fill':'rgb(18, 193, 171)'}"
+              class="btn-close-svg me-2 d-none d-md-block"
+              (click)="close()"></svg-icon>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="form" class="col-12 p-3">
+      <div class="search-container d-flex align-items-center col-12">
+        <svg-icon class="search-icon me-3"
+                  src="assets/icons/search.svg"
+                  [svgStyle]="{
+                        'width.px': 25,
+                        'height.px': 25,
+                        'fill':'rgb(18, 193, 171)'}"></svg-icon>
+        <input class="searchbar w-100"
+               formControlName="search"
+               placeholder="search by title"
+               id="search"
+               name="search">
+        <svg-icon *ngIf="!!search() && search() !== ''"
+                  (click)="clearForm()"
+                  class="search-icon ms-3"
+                  src="assets/icons/close.svg"
+                  [svgStyle]="{
+                        'width.px': 25,
+                        'height.px': 25,
+                        'fill':'rgb(18, 193, 171)'}"></svg-icon>
+      </div>
+    </form>
+    <app-item *ngFor="let product of products | sort: search(): ['title']"
+              [mode]="'list'"
+              [item]="product"></app-item>
+    <div *ngIf="(products | sort: search(): ['title']).length === 0"
+         class="d-flex justify-content-center">
+      <h6 class="empty-label">Nothing to see here... 🔍</h6>
+    </div>
+  </div>
+</ng-template>
+

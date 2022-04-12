@@ -9,6 +9,8 @@ import {CommonModule} from "@angular/common";
 import {FavoritesComponent} from './components/modals/favorites/favorites.component';
 import {NgbModalModule, NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {AngularSvgIconModule} from "angular-svg-icon";
+import { SortPipe } from './pipes/sort.pipe';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 export function playerFactory() {
   return import(/* webpackChunkName: 'lottie-web' */ 'lottie-web');
@@ -17,10 +19,13 @@ export function playerFactory() {
 @NgModule({
   declarations: [
     ItemComponent,
-    FavoritesComponent
+    FavoritesComponent,
+    SortPipe
   ],
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     NgbModule,
     NgbModalModule,
@@ -33,7 +38,9 @@ export function playerFactory() {
     FavoritesService
   ],
   exports: [
-    ItemComponent
+    ItemComponent,
+    FavoritesComponent,
+    SortPipe
   ]
 })
 

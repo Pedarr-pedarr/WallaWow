@@ -1,10 +1,37 @@
 <div class="container-fluid">
   <div class="container">
     <div class="row">
-        <app-item *ngFor="let element of items; trackBy: tracking"
-          class="col-lg-6 col-md-12 p-2 px-lg-5 p-md-2"
-          [item]="element">
-        </app-item>
+      <form [formGroup]="form" class="col-12 p-3">
+        <div class="search-container d-flex align-items-center col-lg-6 col-md-12 mx-lg-5 mx-md-0">
+          <svg-icon class="search-icon me-3"
+                    src="assets/icons/search.svg"
+                    [svgStyle]="{
+                        'width.px': 25,
+                        'height.px': 25,
+                        'fill':'rgb(18, 193, 171)'}"></svg-icon>
+          <input class="searchbar w-100"
+                 formControlName="search"
+                 placeholder="search by title, description, price and email"
+                 id="search"
+                 name="search">
+          <svg-icon *ngIf="!!search() && search() !== ''"
+                    (click)="clearForm()"
+                    class="search-icon ms-3"
+                    src="assets/icons/close.svg"
+                    [svgStyle]="{
+                        'width.px': 25,
+                        'height.px': 25,
+                        'fill':'rgb(18, 193, 171)'}"></svg-icon>
+        </div>
+      </form>
+      <app-item *ngFor="let element of items | sort: search(): ['title', 'description', 'email', 'price']; trackBy: tracking"
+                class="col-lg-6 col-md-12 p-2 px-lg-5 p-md-2"
+                [item]="element">
+      </app-item>
+      <div *ngIf="(items | sort: search(): ['title', 'description', 'email', 'price']).length === 0"
+           class="d-flex justify-content-center">
+        <h6 class="empty-label">Nothing to see here... 🔍</h6>
+      </div>
     </div>
   </div>
 </div>

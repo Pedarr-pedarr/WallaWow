@@ -1,1 +1,25 @@
+@import '../../../../../styles/colors';
 
+.container {
+  .modal-body {
+    padding: 0 !important;
+  }
+}
+
+.search-container {
+  .search-icon {
+    fill: rgb($colors-primary-rgb, .5);
+  }
+
+  .searchbar {
+    transition: .4s;
+    border: 0;
+    outline: 0;
+    height: 35px;
+    border-bottom: 1px solid rgba($colors-primary-rgb, .5);
+
+    &:focus {
+      border-bottom: 2px solid $colors-primary-rgb;
+    }
+  }
+}
