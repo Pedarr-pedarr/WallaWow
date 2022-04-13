@@ -1,7 +1,11 @@
 import {Component, NgZone, OnInit} from '@angular/core';
-import {FavoritesService} from "../../shared/services/favorites.service";
-import {Item} from "../../models/item";
+import {ActivatedRoute} from "@angular/router";
 import {FormControl, FormGroup} from "@angular/forms";
+
+import {FavoritesService} from "../../shared/services/favorites.service";
+
+import {Item} from "../../models/item";
+
 
 @Component({
   selector: 'app-item-manager',
@@ -12,15 +16,10 @@ export class ItemManagerComponent implements OnInit {
   items: Item[] = [];
   form: FormGroup;
 
-  public trackItem (index: number, item: Item) {
-    return this.items?.find((element: Item) => element.id === item.id);
-  }
-
-  constructor(public favorites: FavoritesService,
+  constructor(private favorites: FavoritesService,
+              private route: ActivatedRoute,
               private ng: NgZone) {
-    this.favorites.favorites$.subscribe((items: Item[]) =>
-      this.ng.run(() => this.items = items)
-    );
+    this.items = route.snapshot.data.items.slice(0,6);
 
     this.form = new FormGroup({
       search: new FormControl(null)
@@ -41,5 +40,11 @@ export class ItemManagerComponent implements OnInit {
   clearForm() {
     this.form.get('search')?.setValue(null);
     this.form.get('search')?.updateValueAndValidity();
+  }
+
+  loadMore() {
+    this.favorites.favorites$.subscribe((items: Item[]) =>
+      this.ng.run(() => this.items = [...this.items, ...items.slice(this.items.length, this.items.length+6)])
+    );
   }
 }

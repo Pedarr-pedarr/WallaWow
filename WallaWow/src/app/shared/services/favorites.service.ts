@@ -1,11 +1,14 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, combineLatest, Observable, of} from "rxjs";
-import {Item} from "../../models/item";
-import {StorageService} from "./storage.service";
-import {storageKeys} from "../../app.constants";
 import {fromPromise} from "rxjs/internal-compatibility";
 import {first, map, switchMap, tap} from "rxjs/operators";
+
 import {ClientService} from "./client.service";
+import {StorageService} from "./storage.service";
+
+import {Item} from "../../models/item";
+import {storageKeys} from "../../app.constants";
+
 
 @Injectable({
   providedIn: 'root'

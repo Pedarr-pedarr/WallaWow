@@ -13,7 +13,10 @@ const routes: Routes = [
     children: [
       {
         path: 'itemManager',
-        component: ItemManagerComponent
+        component: ItemManagerComponent,
+        resolve: {
+          items: ItemsResolver
+        }
       },
       {
         path: 'favourites',

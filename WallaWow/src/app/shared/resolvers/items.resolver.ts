@@ -5,9 +5,11 @@ import {
   ActivatedRouteSnapshot
 } from '@angular/router';
 import {Observable} from 'rxjs';
-import {Item} from "../../models/item";
-import {FavoritesService} from "../services/favorites.service";
 import {first} from "rxjs/operators";
+
+import {FavoritesService} from "../services/favorites.service";
+
+import {Item} from "../../models/item";
 
 
 @Injectable({

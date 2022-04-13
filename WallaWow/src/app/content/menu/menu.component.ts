@@ -1,11 +1,13 @@
 import {Component, HostListener, NgZone, OnInit} from '@angular/core';
-import {NgbModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
-import {FavoritesComponent} from "../../shared/components/modals/favorites/favorites.component";
-import {Item} from "../../models/item";
-import {FavoritesService} from "../../shared/services/favorites.service";
 import {Router} from "@angular/router";
-import {Observable, Subject} from "rxjs";
-import {distinctUntilChanged} from "rxjs/operators";
+import {NgbModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
+
+import {FavoritesService} from "../../shared/services/favorites.service";
+
+import {FavoritesComponent} from "../../shared/components/modals/favorites/favorites.component";
+
+import {Item} from "../../models/item";
+
 
 export interface MenuItem {
   title: string;
@@ -14,13 +16,6 @@ export interface MenuItem {
   click: () => void;
 }
 
-export enum SCREEN_SIZE {
-  XS,
-  SM,
-  MD,
-  LG,
-  XL
-}
 
 @Component({
   selector: 'app-menu',
@@ -33,7 +28,7 @@ export class MenuComponent implements OnInit {
       title: 'My favourites',
       icon: 'assets/icons/favorite.svg',
       class: 'd-flex align-items-center justify-content-center justify-content-md-start menu-item p-3 px-4',
-      click: () => this.isMobile ? this.router.navigate(['favourites']) : this.openFavorites() // this.openFavorites()
+      click: () => this.isMobile ? this.router.navigate(['favourites']) : this.openFavorites()
     },
     {
       title: 'My items',
@@ -45,12 +40,6 @@ export class MenuComponent implements OnInit {
   products: Item[] = [];
   private modalRef?: NgbModalRef;
   private isMobile: boolean = false;
-
-  get onResize$(): Observable<SCREEN_SIZE> {
-    return this.resizeSubject.asObservable().pipe(distinctUntilChanged());
-  }
-
-  private resizeSubject: Subject<SCREEN_SIZE> = new Subject<SCREEN_SIZE>();
 
   @HostListener("window:resize", [])
   private onResize() {

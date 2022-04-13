@@ -1,9 +1,10 @@
-import {Component, Input, NgZone, OnInit} from '@angular/core';
-import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
-import {Item} from "../../../../models/item";
+import {Component, Input, NgZone} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {FormControl, FormGroup} from "@angular/forms";
+
 import {FavoritesService} from "../../../services/favorites.service";
+
+import {Item} from "../../../../models/item";
 
 export type Mode = 'modal' | 'default';
 

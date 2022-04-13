@@ -24,10 +24,16 @@
                         'fill':'rgb(18, 193, 171)'}"></svg-icon>
         </div>
       </form>
-      <app-item *ngFor="let element of items | sort: search(): ['title', 'description', 'email', 'price']; trackBy: tracking"
-                class="col-lg-6 col-md-12 p-2 px-lg-5 p-md-2"
-                [item]="element">
-      </app-item>
+      <div class="row"
+           infiniteScroll
+           [infiniteScrollDistance]="2"
+           [infiniteScrollThrottle]="50"
+           (scrolled)="loadMore()">
+          <app-item *ngFor="let element of items | sort: search(): ['title', 'description', 'email', 'price']; trackBy: tracking"
+                    class="col-lg-6 col-md-12 p-2 px-lg-5 p-md-2"
+                    [item]="element">
+          </app-item>
+      </div>
       <div *ngIf="(items | sort: search(): ['title', 'description', 'email', 'price']).length === 0"
            class="d-flex justify-content-center">
         <h6 class="empty-label">Nothing to see here... 🔍</h6>

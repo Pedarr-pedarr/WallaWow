@@ -1,9 +1,12 @@
 import {Component, Input, NgZone, OnInit} from '@angular/core';
-import {Item} from "../../../models/item";
 import {AnimationItem, AnimationOptions} from "ngx-lottie/lib/symbols";
+
 import {FavoritesService} from "../../services/favorites.service";
 
+import {Item} from "../../../models/item";
+
 export type Mode = 'grid' | 'list';
+
 
 @Component({
   selector: 'app-item',
