@@ -10,7 +10,7 @@
 `node` and `npm` installed.
 
 ```
-git clone [Repository-name]
+git clone https://github.com/Pedarr-pedarr/WallaWow.git
 npm install
 ```
 
