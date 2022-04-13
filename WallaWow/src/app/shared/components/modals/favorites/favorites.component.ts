@@ -1,8 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, NgZone, OnInit} from '@angular/core';
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import {Item} from "../../../../models/item";
 import {ActivatedRoute} from "@angular/router";
 import {FormControl, FormGroup} from "@angular/forms";
+import {FavoritesService} from "../../../services/favorites.service";
 
 export type Mode = 'modal' | 'default';
 
@@ -18,9 +19,14 @@ export class FavoritesComponent {
   close: () => void;
   form: FormGroup;
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute,
+              private ng: NgZone,
+              private favorite: FavoritesService) {
     if (!!route.snapshot.data.items) {
       this.products = route.snapshot.data.items.filter((item: Item) => item.favorite) || [];
+      favorite.favorites$.subscribe((items: Item[]) =>
+        this.ng.run(() => this.products = items.filter((item: Item) => item.favorite))
+      );
     }
 
     this.form = new FormGroup({
