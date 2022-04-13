@@ -1,4 +1,13 @@
 <div class="menu h-100">
+  <div class="logo-container d-flex align-items-center px-4 p-5">
+    <svg-icon class="me-3"
+              src="assets/icons/logo.svg"
+              [svgStyle]="{
+                        'width.px': 60,
+                        'height.px': 60,
+                        'fill':'rgb(255,255,255)'}"></svg-icon>
+    <h3 class="text-white"><b>WallaWow</b></h3>
+  </div>
   <div class="position-absolute d-flex flex-row-reverse d-md-block bottom-0 w-100">
     <div *ngFor="let item of items"
          [class]="item.class"
